@@ -1,6 +1,8 @@
 package com.springbootapps.recipe.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -15,6 +17,7 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+    @Lob
     private String directions;
     private String description;
 
@@ -22,7 +25,7 @@ public class Recipe {
     private Difficulty difficulty;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     // lob - larege object byte underlying object
     @Lob
@@ -35,7 +38,7 @@ public class Recipe {
     @ManyToMany
     @JoinTable(name = "recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -110,11 +113,17 @@ public class Recipe {
     }
 
     public Set<Ingredient> getIngredients() {
+
         return ingredients;
     }
 
     public void setIngredients(Set<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+        Iterator<Ingredient> iterator = ingredients.iterator();
+        while (iterator.hasNext()) {
+            Ingredient temp = (Ingredient) iterator.next();
+            temp.setRecipe(this);
+            this.ingredients.add(temp);
+        }
     }
 
     public Byte[] getImage() {
@@ -130,6 +139,7 @@ public class Recipe {
     }
 
     public void setNotes(Notes notes) {
+        notes.setRecipe(this);
         this.notes = notes;
     }
 
@@ -138,6 +148,13 @@ public class Recipe {
     }
 
     public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+        Iterator<Category> iterator = categories.iterator();
+        while (iterator.hasNext()) {
+            Category temp = (Category) iterator.next();
+            HashSet<Recipe> recipeSet = new HashSet<Recipe>();
+            recipeSet.add(this);
+            temp.setRecipes(recipeSet);
+            this.categories.add(temp);
+        }
     }
 }
