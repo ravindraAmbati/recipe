@@ -4,6 +4,8 @@ import com.springbootapps.recipe.domain.*;
 import com.springbootapps.recipe.repositories.CategoryRepository;
 import com.springbootapps.recipe.repositories.RecipeRepository;
 import com.springbootapps.recipe.repositories.UnitOfMeasureRepository;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -14,18 +16,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
+    @NonNull
     private final CategoryRepository categoryRepository;
+    @NonNull
     private final UnitOfMeasureRepository unitOfMeasureRepository;
+    @NonNull
     private final RecipeRepository recipeRepository;
-
-    public RecipeBootstrap(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository, RecipeRepository recipeRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
-        this.recipeRepository = recipeRepository;
-    }
 
     private List<Recipe> getRecipes() {
         List<Recipe> recipes = new ArrayList<>(2);
