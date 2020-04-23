@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -62,14 +63,18 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         recipe1.setIngredients(ingredients);
         recipe1.setSource("bbcgoodfood");
         recipe1.setUrl("https://www.bbcgoodfood.com/recipes/chorizo-mozzarella-gnocchi-bake");
-        recipe1.setNotes(new Notes(recipe1, "By Marianne TurnerMagazine subscription – 5 issues for £5"));
+        Notes notes = new Notes();
+        notes.setRecipeNotes("By Marianne TurnerMagazine subscription – 5 issues for £5");
+        recipe1.setNotes(notes);
         recipes.add(recipe1);
         return recipes;
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         recipeRepository.saveAll(getRecipes());
         log.info("Successfully saved recipes");
+        recipeRepository.findAll().forEach(recipe -> log.info(recipe.toString()));
     }
 }
