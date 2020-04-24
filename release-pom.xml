@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.springbootapps</groupId>
   <artifactId>recipe</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <name>recipe</name>
   <description>Spring Boot App for recipe</description>
   <url>https://projects.spring.io/spring-boot/#/spring-boot-starter-parent/recipe</url>
@@ -882,7 +882,7 @@
       </testResource>
     </testResources>
     <directory>target</directory>
-    <finalName>recipe-0.0.1</finalName>
+    <finalName>recipe-0.0.2</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
