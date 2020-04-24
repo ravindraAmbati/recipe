@@ -1,16 +1,23 @@
 package com.springbootapps.recipe.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipe"})
 @ToString(exclude = {"recipe"})
 @Entity
 public class Notes {
+
+    @Builder
+    public Notes(Long id, Recipe recipe, String recipeNotes) {
+        this.id = id;
+        this.recipe = recipe;
+        this.recipeNotes = recipeNotes;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

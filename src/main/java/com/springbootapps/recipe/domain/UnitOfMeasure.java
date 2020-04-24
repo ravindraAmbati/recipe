@@ -1,16 +1,23 @@
 package com.springbootapps.recipe.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"ingredient"})
 @ToString(exclude = {"ingredient"})
 @Entity
 public class UnitOfMeasure {
+
+    @Builder
+    public UnitOfMeasure(Long id, String description, Ingredient ingredient) {
+        this.id = id;
+        this.description = description;
+        this.ingredient = ingredient;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

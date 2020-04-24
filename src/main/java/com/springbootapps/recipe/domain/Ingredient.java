@@ -1,17 +1,26 @@
 package com.springbootapps.recipe.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipe"})
 @ToString(exclude = {"recipe"})
 @Entity
 public class Ingredient {
+
+    @Builder
+    public Ingredient(Long id, String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.id = id;
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
