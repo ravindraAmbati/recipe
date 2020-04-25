@@ -1,27 +1,27 @@
 package com.springbootapps.recipe.domain;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class CategoryTest {
+public class CategoryTest {
 
     Category category;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         category = new Category();
     }
 
-    @AfterEach
-    void tearDown() {
+    @After
+    public void tearDown() {
         category = null;
     }
 
     @Test
-    void getId() {
+    public void getId() {
         Long id = 1L;
         category.setId(id);
         assertEquals(id, category.getId());

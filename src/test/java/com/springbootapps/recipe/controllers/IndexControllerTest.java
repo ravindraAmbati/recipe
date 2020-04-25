@@ -2,9 +2,9 @@ package com.springbootapps.recipe.controllers;
 
 import com.springbootapps.recipe.domain.Recipe;
 import com.springbootapps.recipe.services.RecipeService;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -17,10 +17,10 @@ import org.springframework.ui.Model;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-class IndexControllerTest {
+public class IndexControllerTest {
 
     @Mock
     RecipeService recipeService;
@@ -29,19 +29,19 @@ class IndexControllerTest {
 
     IndexController testClass;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         testClass = new IndexController(recipeService);
     }
 
-    @AfterEach
-    void tearDown() {
+    @After
+    public void tearDown() {
         testClass = null;
     }
 
     @Test
-    void getIndex() {
+    public void getIndex() {
         //given
         Set<Recipe> expected = new HashSet<>();
         expected.add(Recipe.builder().id(1L).build());
