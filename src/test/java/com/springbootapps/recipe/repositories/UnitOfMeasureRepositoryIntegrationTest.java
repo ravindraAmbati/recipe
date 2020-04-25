@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-class UnitOfMeasureRepositoryIntegrationTest {
+public class UnitOfMeasureRepositoryIntegrationTest {
 
     @Autowired
     UnitOfMeasureRepository unitOfMeasureRepository;
