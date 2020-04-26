@@ -34,19 +34,23 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Description</th>
+                                <th>View</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
                                 <td th:text="${recipe.id}">123</td>
                                 <td th:text="${recipe.description}">for static testing only</td>
+                                <td><a href="#">view</a></td>
                             </tr>
                             <tr th:remove="all">
                                 <td th:text="${recipe.id}">12333</td>
                                 <td th:text="${recipe.description}">for static testing only</td>
+                                <td><a href="#">view</a></td>
                             </tr>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">334</td>
                                 <td th:text="${recipe.description}">for static testing only</td>
+                                <td><a href="#" th:href="@{'recipe/show/'+${recipe.id}}">view</a></td>
                             </tr>
                         </table>
                     </div>

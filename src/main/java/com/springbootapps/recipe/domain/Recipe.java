@@ -15,11 +15,19 @@ import java.util.Set;
 @Entity
 public class Recipe {
 
+    private Integer cookTime;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Integer prepTime;
+
     @Builder
-    public Recipe(Long id, Integer prepTime, Integer cookingTime, Integer servings, String source, String url, String directions, String description, Difficulty difficulty, Set<Ingredient> ingredients, Byte[] image, Notes notes, Set<Category> categories) {
+    public Recipe(Long id, Integer prepTime, Integer cookTime, Integer servings, String source, String url, String directions, String description, Difficulty difficulty, Set<Ingredient> ingredients, Byte[] image, Notes notes, Set<Category> categories) {
         this.id = id;
         this.prepTime = prepTime;
-        this.cookingTime = cookingTime;
+        this.cookTime = cookTime;
         this.servings = servings;
         this.source = source;
         this.url = url;
@@ -31,13 +39,6 @@ public class Recipe {
         this.notes = notes;
         this.categories = categories;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private Integer prepTime;
-    private Integer cookingTime;
     private Integer servings;
     private String source;
     private String url;
@@ -65,7 +66,9 @@ public class Recipe {
     private Set<Category> categories = new HashSet<>();
 
     public void setNotes(Notes notes) {
-        notes.setRecipe(this);
+        if (null != notes) {
+            notes.setRecipe(this);
+        }
         this.notes = notes;
     }
 
@@ -83,5 +86,17 @@ public class Recipe {
             category.setRecipes(recipeSet);
         });
         this.categories = categories;
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        ingredient.setRecipe(this);
+        ingredients.add(ingredient);
+    }
+
+    public void addCategory(Category category) {
+        Set<Recipe> recipes = new HashSet<>(1);
+        recipes.add(this);
+        category.setRecipes(recipes);
+        categories.add(category);
     }
 }

@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,8 +29,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     private List<Recipe> getRecipes() {
         List<Recipe> recipes = new ArrayList<>(2);
         HashSet<Category> categories = new HashSet<>(2);
-        categories.add(categoryRepository.findByDescription("American").orElse(null));
-        categories.add(categoryRepository.findByDescription("Italian").orElse(null));
         Ingredient ingredient1 = Ingredient.builder().description("Olive Oil").amount(new BigDecimal(1)).uom(unitOfMeasureRepository.findByDescription("Tablespoon").orElse(null)).build();
         Ingredient ingredient2 = Ingredient.builder().description("green salad").amount(new BigDecimal(1)).uom(unitOfMeasureRepository.findByDescription("Bunch").orElse(null)).build();
         HashSet<Ingredient> ingredients = new HashSet<>(2);
@@ -38,7 +37,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         Notes notes = Notes.builder().recipeNotes("By Marianne TurnerMagazine subscription – 5 issues for £5").build();
         Recipe recipe1 = Recipe.builder()
                 .categories(categories)
-                .cookingTime(25)
+                .cookTime(25)
                 .prepTime(10)
                 .difficulty(Difficulty.EASY)
                 .servings(6)
@@ -50,6 +49,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 .url("https://www.bbcgoodfood.com/recipes/chorizo-mozzarella-gnocchi-bake")
                 .notes(notes)
                 .build();
+        recipe1.addIngredient(ingredient1);
+        recipe1.addIngredient(ingredient2);
+        recipe1.addCategory(Objects.requireNonNull(categoryRepository.findByDescription("American").orElse(null)));
+        recipe1.addCategory(Objects.requireNonNull(categoryRepository.findByDescription("Italian").orElse(null)));
         recipes.add(recipe1);
         return recipes;
     }

@@ -37,7 +37,9 @@ public class Ingredient {
     private Recipe recipe;
 
     public void setUom(UnitOfMeasure uom) {
-        uom.setIngredient(this);
+        if (null != uom) {
+            uom.setIngredient(this);
+        }
         this.uom = uom;
     }
 }
