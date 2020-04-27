@@ -25,7 +25,7 @@
             <form method="post" th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'} "
                   th:object="${ingredient}">
                 <input th:field="*{id}" type="hidden"/>
-                <div class="panel-group">
+                <div class="pannel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h1 class="panel-title">Edit Ingredient Information</h1>
@@ -48,8 +48,8 @@
                                     <label>UOM:</label>
                                     <select class="form-control" name="uom.id">
                                         <option th:each="uomEach : ${uomList}"
-                                                th:selected="${uomEach.id.equals(ingredient.uom.id)}"
                                                 th:text="${uomEach.description}"
+                                                th:selected="${uomEach.id.equals(ingredient.uom.id)}"
                                                 th:value="${uomEach.id}">Each
                                         </option>
                                     </select>
