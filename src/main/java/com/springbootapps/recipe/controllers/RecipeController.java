@@ -68,4 +68,14 @@ public class RecipeController {
         log.error(e.getMessage());
         return modelAndView;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleNFE(Exception e) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("400error");
+        modelAndView.addObject("exceptionMessage", "Given input should be Number;    " + e.getMessage());
+        log.error(e.getMessage());
+        return modelAndView;
+    }
 }
