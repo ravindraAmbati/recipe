@@ -1,14 +1,14 @@
 package com.springbootapps.recipe.controllers;
 
 import com.springbootapps.recipe.commands.RecipeCommand;
-import com.springbootapps.recipe.exceptions.NotFoundException;
 import com.springbootapps.recipe.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * Created by jt on 6/19/17.
@@ -57,25 +57,5 @@ public class RecipeController {
 
         recipeService.deleteById(Long.valueOf(id));
         return "redirect:/";
-    }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFound(Exception e) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("404error");
-        modelAndView.addObject("exceptionMessage", e.getMessage());
-        log.error(e.getMessage());
-        return modelAndView;
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNFE(Exception e) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("400error");
-        modelAndView.addObject("exceptionMessage", "Given input should be Number;    " + e.getMessage());
-        log.error(e.getMessage());
-        return modelAndView;
     }
 }
