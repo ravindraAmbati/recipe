@@ -4,6 +4,7 @@ import com.springbootapps.recipe.commands.RecipeCommand;
 import com.springbootapps.recipe.converters.RecipeCommandToRecipe;
 import com.springbootapps.recipe.converters.RecipeToRecipeCommand;
 import com.springbootapps.recipe.domain.Recipe;
+import com.springbootapps.recipe.exceptions.NotFoundException;
 import com.springbootapps.recipe.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +40,17 @@ public class RecipeServiceImplTest {
         MockitoAnnotations.initMocks(this);
 
         recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdNotFoundExceptionTest() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        recipeService.findById(1L);
     }
 
     @Test
