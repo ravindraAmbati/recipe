@@ -44,11 +44,11 @@ public class Ingredient {
     @ManyToOne
     private Recipe recipe;
 
-    public void setUom(UnitOfMeasure uom) {
-        if (null != uom) {
-            uom.setIngredient(this);
-        }
-        this.uom = uom;
-    }
+//    public void setUom(UnitOfMeasure uom) {
+//        if (null != uom) {
+//            uom.setIngredient(this);
+//        }
+//        this.uom = uom;
+//    }
 }
 
